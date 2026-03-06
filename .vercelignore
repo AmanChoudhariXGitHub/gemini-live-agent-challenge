@@ -1,0 +1,9 @@
+backend/
+extension/
+scripts/
+docker-compose.yml
+DEPLOYMENT.md
+v0_plans/
+.git/
+.env
+node_modules/

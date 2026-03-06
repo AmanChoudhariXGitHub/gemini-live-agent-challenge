@@ -12,8 +12,10 @@ export class WebSocketClient {
   private messageHandlers: Map<string, (data: any) => void> = new Map();
   private isConnecting = false;
 
-  constructor(url: string = 'ws://localhost:8080') {
-    this.url = url;
+  constructor(url?: string) {
+    // Use provided URL, environment variable, or fallback to localhost
+    this.url = url || import.meta.env.VITE_BACKEND_URL || 'ws://localhost:8080';
+    console.log('[v0] WebSocket client configured with URL:', this.url);
   }
 
   /**
