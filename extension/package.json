@@ -1,0 +1,106 @@
+{
+  "name": "livepair",
+  "displayName": "LivePair - Voice Pair Programmer",
+  "description": "Real-time voice pair programming with Gemini Live API",
+  "version": "0.1.0",
+  "publisher": "livepair",
+  "author": "LivePair Contributors",
+  "engines": {
+    "vscode": "^1.85.0"
+  },
+  "categories": [
+    "AI",
+    "Copilots",
+    "Programming Languages"
+  ],
+  "keywords": [
+    "ai",
+    "pair-programming",
+    "voice",
+    "gemini",
+    "coding-assistant"
+  ],
+  "icon": "resources/icon.png",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/yourusername/livepair"
+  },
+  "activationEvents": [
+    "onCommand:livepair.start",
+    "onView:livepair-sidebar"
+  ],
+  "main": "./dist/extension.js",
+  "contributes": {
+    "commands": [
+      {
+        "command": "livepair.start",
+        "title": "LivePair: Start Session",
+        "category": "LivePair"
+      },
+      {
+        "command": "livepair.stop",
+        "title": "LivePair: Stop Session",
+        "category": "LivePair"
+      },
+      {
+        "command": "livepair.toggleListening",
+        "title": "LivePair: Toggle Listening",
+        "category": "LivePair",
+        "keybinding": "ctrl+alt+p"
+      }
+    ],
+    "views": {
+      "livepair": [
+        {
+          "id": "livepair-chat",
+          "name": "Chat",
+          "type": "webview"
+        }
+      ]
+    },
+    "viewsContainers": {
+      "activitybar": [
+        {
+          "id": "livepair",
+          "title": "LivePair",
+          "icon": "resources/icon.svg"
+        }
+      ]
+    },
+    "configuration": {
+      "title": "LivePair",
+      "properties": {
+        "livepair.backendUrl": {
+          "type": "string",
+          "default": "wss://livepair-backend-xxx.run.app",
+          "description": "Backend WebSocket URL"
+        },
+        "livepair.autoStart": {
+          "type": "boolean",
+          "default": false,
+          "description": "Auto-start LivePair on extension load"
+        }
+      }
+    }
+  },
+  "scripts": {
+    "vscode:prepublish": "npm run esbuild-base -- --minify",
+    "esbuild-base": "esbuild ./src/extension.ts --bundle --outfile=dist/extension.js --external:vscode --platform=node --format=cjs",
+    "esbuild": "npm run esbuild-base -- --sourcemap",
+    "esbuild-watch": "npm run esbuild-base -- --sourcemap --watch",
+    "typecheck": "tsc --noEmit",
+    "package": "vsce package",
+    "publish": "vsce publish"
+  },
+  "devDependencies": {
+    "@types/node": "^20.10.6",
+    "@types/vscode": "^1.85.0",
+    "@vscode/vsce": "^2.22.0",
+    "esbuild": "^0.20.0",
+    "typescript": "^5.3.3"
+  },
+  "dependencies": {
+    "ws": "^8.14.2",
+    "uuid": "^9.0.1"
+  }
+}
